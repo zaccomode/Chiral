@@ -333,10 +333,20 @@ export default class RealTime implements Chiral.Time.I_Time<RealTime> {
   }
 
 
-  // STATIC VALUES
+  // STATIC
   static readonly SUFFIXES = {
     AM: " AM",
     PM: " PM",
     mil: "",
   };
+
+  static now() {
+    const now = new Date();
+    return new RealTime(
+      now.getHours(),
+      now.getMinutes(),
+      now.getSeconds(),
+      now.getMilliseconds(),
+    );
+  }
 }

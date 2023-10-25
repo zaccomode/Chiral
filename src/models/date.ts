@@ -229,4 +229,9 @@ export default class RealDate implements Chiral.Date.I_Date<RealDate> {
     "January", "February", "March", "April", "May", "June", "July", "August",
     "September", "October", "November", "December",
   ];
+
+  static now(): RealDate {
+    const d = new Date();
+    return new RealDate(d.getFullYear(), d.getMonth() + 1, d.getDate());
+  }
 }
