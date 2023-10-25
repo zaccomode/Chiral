@@ -29,10 +29,12 @@ console.log(time.toDigital());
 // 09:41:40 AM
 ```
 
-Rounding to a particular precision `p` is also possible, and will by default **round down**. This can be set manually using the `r` parameter, which accepts `"down"`, `"up"` or `"nearest"`:
+Rounding to a particular precision `precision`/`p` is also possible, and will by default **round down**. This can be set manually using the `rounding`/`r` parameter, which accepts `"down"`, `"up"` or `"nearest"`:
 ```ts
 console.log(time.round({ p: "m" }).toDigital());
 // 09:41:00 AM
+console.log(time.round({ precision: "m", rounding: "nearest"}).toDigital());
+// 09:42:00 AM
 console.log(time.round({ p: "m", r: "nearest"}).toDigital());
 // 09:42:00 AM
 ```
@@ -50,6 +52,9 @@ console.log(time.toDigital({ p: "ms" }));
 Arithmetic can also be performed on times, like so:
 ```ts
 const time = new RealTime(9, 35, 40);
+console.log(time.add({ unit: "m", value: 3 }).toDigital());
+// 09:38:40 AM
+// OR
 console.log(time.add({ u: "m", v: 3 }).toDigital());
 // 09:38:40 AM
 
