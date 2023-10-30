@@ -1,5 +1,5 @@
-import RealDate from "./date";
-import RealTime from "./time";
+import { RealDate } from "../date";
+import { RealTime } from "./time";
 
 test("RealTime", () => {
   const baseTime = new RealTime(1, 2, 3, 4);
@@ -145,4 +145,14 @@ test("RealTime", () => {
   const typeofTime = new RealTime(1, 2, 3, 4);
   expect(typeofTime.typeof(new RealDate())).toBe(false);
   expect(typeofTime.typeof(new RealTime())).toBe(true);
+
+
+  /** Test fromJson */
+  const jsonTime = new RealTime(1, 2, 3, 4);
+  const jsonTimeJson = JSON.parse(JSON.stringify(jsonTime));
+  const fromJsonTime = RealTime.fromJson(jsonTimeJson);
+  const jsonTime2 = new RealTime(1, 2, 3, 4);
+  expect(fromJsonTime.equals(jsonTime2)).toBe(true);
+  expect(fromJsonTime.hours).toBe(jsonTime2.hours);
+  expect(fromJsonTime.minutes).toBe(2);
 });

@@ -1,8 +1,8 @@
 import { Round } from "../helpers";
 import padNumber from "../helpers/padNumber";
-import { Chiral } from "./types";
+import { Chiral } from "../types/types";
 
-export default class RealTime implements Chiral.Time.I_Time<RealTime> {
+export class RealTime implements Chiral.Time.I_Time<RealTime> {
   protected _type: "RealTime" = "RealTime";
 
 
@@ -340,6 +340,8 @@ export default class RealTime implements Chiral.Time.I_Time<RealTime> {
     mil: "",
   };
 
+
+  /** Creates a new `RealTime` from the current system time */
   static now() {
     const now = new Date();
     return new RealTime(
@@ -348,5 +350,13 @@ export default class RealTime implements Chiral.Time.I_Time<RealTime> {
       now.getSeconds(),
       now.getMilliseconds(),
     );
+  }
+
+  /** Creates a new `RealTime` from a JSON object */
+  static fromJson(json: any): RealTime {
+    if (!json.hasOwnProperty("_millis")) throw new Error("Invalid JSON");
+    const time = new RealTime();
+    time._millis = json._millis;
+    return time;
   }
 }

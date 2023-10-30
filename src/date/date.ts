@@ -1,7 +1,7 @@
 import padNumber from "../helpers/padNumber";
-import { Chiral } from "./types";
+import { Chiral } from "../types/types";
 
-export default class RealDate implements Chiral.Date.I_Date<RealDate> {
+export class RealDate implements Chiral.Date.I_Date<RealDate> {
   protected _type: "RealDate" = "RealDate";
 
   private _date: Date;
@@ -230,8 +230,17 @@ export default class RealDate implements Chiral.Date.I_Date<RealDate> {
     "September", "October", "November", "December",
   ];
 
+  /** Creates a new `RealDate` from the current system date */
   static now(): RealDate {
     const d = new Date();
     return new RealDate(d.getFullYear(), d.getMonth() + 1, d.getDate());
+  }
+
+  /** Creates a new `RealDate` from a JSON object */
+  static fromJson(json: any): RealDate {
+    if (!json.hasOwnProperty("_date")) throw new Error("Invalid JSON");
+    const date = new RealDate();
+    date._date = new Date(json._date);
+    return date;
   }
 }

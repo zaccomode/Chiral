@@ -1,4 +1,4 @@
-import RealDate from "./date";
+import { RealDate } from "./date";
 
 test("RealDate", () => {
   const baseDate = new RealDate(2021, 1, 1);
@@ -142,4 +142,13 @@ test("RealDate", () => {
 
   expect(equalDate3.isBetween(equalDate1, equalDate2, { p: "m" })).toBe(true);
   expect(equalDate3.isBetween(equalDate2, equalDate1, { p: "m" })).toBe(true);
+
+
+  /** Test static methods */
+  // fromJson
+  const fromJsonDate = new RealDate(2021, 3, 23);
+  const fromJsonString = JSON.parse(JSON.stringify(fromJsonDate));
+  const fromJsonDate2 = RealDate.fromJson(fromJsonString);
+  expect(fromJsonDate.equals(fromJsonDate2)).toBe(true);
+  expect(fromJsonDate.day).toBe(fromJsonDate2.day);
 });
