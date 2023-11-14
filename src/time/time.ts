@@ -63,6 +63,9 @@ export class RealTime implements Chiral.Time.I_Time<RealTime> {
       - (this.minutes * 60 * 1000)
       - (this.hours * 60 * 60 * 1000);
   }
+  get raw(): number {
+    return this._millis;
+  }
 
 
   // SETTERS

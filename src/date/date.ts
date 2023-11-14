@@ -28,6 +28,9 @@ export class RealDate implements Chiral.Date.I_Date<RealDate> {
   get day(): number {
     return this._date.getDate();
   }
+  get raw(): Date {
+    return new Date(this._date);
+  }
 
 
   set year(n: number) {
