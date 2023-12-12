@@ -255,11 +255,7 @@ export class RealTime implements Chiral.Time.I_Time<RealTime> {
     const r = this.round({ p: precision, r: rounding });
     const t = time.round({ p: precision, r: rounding });
 
-    return (r.hours === t.hours
-      && r.minutes === t.minutes
-      && r.seconds === t.seconds
-      && r.milliseconds === t.milliseconds
-    )
+    return r._millis === t._millis;
   }
 
   isBefore(time: RealTime, params?: Chiral.Time.RoundingParams): boolean {
@@ -269,29 +265,7 @@ export class RealTime implements Chiral.Time.I_Time<RealTime> {
     const r = this.round({ p: precision, r: rounding });
     const t = time.round({ p: precision, r: rounding });
 
-    switch (precision) {
-      case "ms": return r.hours < t.hours
-        || (r.hours === t.hours
-          && r.minutes < t.minutes)
-        || (r.hours === t.hours
-          && r.minutes === t.minutes
-          && r.seconds < t.seconds)
-        || (r.hours === t.hours
-          && r.minutes === t.minutes
-          && r.seconds === t.seconds
-          && r.milliseconds < t.milliseconds);
-      case "s": return r.hours < t.hours
-        || (r.hours === t.hours
-          && r.minutes < t.minutes)
-        || (r.hours === t.hours
-          && r.minutes === t.minutes
-          && r.seconds < t.seconds);
-      case "m": return r.hours < t.hours
-        || (r.hours === t.hours
-          && r.minutes < t.minutes);
-      case "h": return r.hours < t.hours;
-      default: return false;
-    }
+    return r._millis < t._millis;
   }
 
   isAfter(time: RealTime, params?: Chiral.Time.RoundingParams): boolean {
@@ -301,29 +275,7 @@ export class RealTime implements Chiral.Time.I_Time<RealTime> {
     const r = this.round({ p: precision, r: rounding });
     const t = time.round({ p: precision, r: rounding });
 
-    switch (precision) {
-      case "ms": return r.hours > t.hours
-        || (r.hours === t.hours
-          && r.minutes > t.minutes)
-        || (r.hours === t.hours
-          && r.minutes === t.minutes
-          && r.seconds > t.seconds)
-        || (r.hours === t.hours
-          && r.minutes === t.minutes
-          && r.seconds === t.seconds
-          && r.milliseconds > t.milliseconds);
-      case "s": return r.hours > t.hours
-        || (r.hours === t.hours
-          && r.minutes > t.minutes)
-        || (r.hours === t.hours
-          && r.minutes === t.minutes
-          && r.seconds > t.seconds);
-      case "m": return r.hours > t.hours
-        || (r.hours === t.hours
-          && r.minutes > t.minutes);
-      case "h": return r.hours > t.hours;
-      default: return false;
-    }
+    return r._millis > t._millis;
   }
 
   isBetween(start: RealTime, end: RealTime, params?: Chiral.Time.RoundingParams): boolean {

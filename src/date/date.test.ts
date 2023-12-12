@@ -93,6 +93,7 @@ test("RealDate", () => {
   const equalDate1 = new RealDate(2021, 3, 23);
   const equalDate2 = new RealDate(2021, 3, 23);
   const equalDate3 = new RealDate(2021, 3, 24);
+  const equalDate4 = new RealDate(2021, 4, 23);
 
   // Equals
   expect(equalDate1.equals(equalDate2)).toBe(true);
@@ -107,6 +108,11 @@ test("RealDate", () => {
   expect(equalDate1.equals(equalDate2, { p: "y" })).toBe(true);
   expect(equalDate1.equals(equalDate3, { p: "y" })).toBe(true);
 
+  expect(equalDate1.equals(equalDate4, { p: "d" })).toBe(false);
+  expect(equalDate1.equals(equalDate4, { p: "m" })).toBe(false);
+  expect(equalDate1.equals(equalDate4, { p: "y" })).toBe(true);
+
+
   // isBefore
   expect(equalDate1.isBefore(equalDate2)).toBe(false);
   expect(equalDate1.isBefore(equalDate3)).toBe(true);
@@ -120,6 +126,15 @@ test("RealDate", () => {
   expect(equalDate1.isBefore(equalDate2, { p: "y" })).toBe(false);
   expect(equalDate1.isBefore(equalDate3, { p: "y" })).toBe(false);
 
+  expect(equalDate1.isBefore(equalDate4, { p: "d" })).toBe(true);
+  expect(equalDate1.isBefore(equalDate4, { p: "m" })).toBe(true);
+  expect(equalDate1.isBefore(equalDate4, { p: "y" })).toBe(false);
+
+  expect(equalDate4.isBefore(equalDate1, { p: "d" })).toBe(false);
+  expect(equalDate4.isBefore(equalDate1, { p: "m" })).toBe(false);
+  expect(equalDate4.isBefore(equalDate1, { p: "y" })).toBe(false);
+
+
   // isAfter
   expect(equalDate1.isAfter(equalDate2)).toBe(false);
   expect(equalDate3.isAfter(equalDate1)).toBe(true);
@@ -132,6 +147,11 @@ test("RealDate", () => {
 
   expect(equalDate1.isAfter(equalDate2, { p: "y" })).toBe(false);
   expect(equalDate3.isAfter(equalDate1, { p: "y" })).toBe(false);
+
+  expect(equalDate4.isAfter(equalDate1, { p: "d" })).toBe(true);
+  expect(equalDate4.isAfter(equalDate1, { p: "m" })).toBe(true);
+  expect(equalDate4.isAfter(equalDate1, { p: "y" })).toBe(false);
+
 
   // isBetween
   expect(equalDate1.isBetween(equalDate2, equalDate3)).toBe(true);

@@ -170,29 +170,17 @@ export class RealDate implements Chiral.Date.I_Date<RealDate> {
     const r = this.round({ precision, rounding });
     const d = date.round({ precision, rounding });
 
-    return (r.year === d.year && r.month === d.month && r.day === d.day);
+    return r.raw.getTime() === d.raw.getTime();
   }
 
   isBefore(date: RealDate, params?: Chiral.Date.RoundingParams): boolean {
     const precision = params?.precision ?? params?.p ?? "d";
     const rounding = params?.rounding ?? params?.r ?? "down";
 
-    const r = this.round({ precision, rounding });
-    const d = date.round({ precision, rounding });
+    const d = this.round({ precision, rounding });
+    const o = date.round({ precision, rounding });
 
-    switch (precision) {
-      case "d": return r.day < d.day
-        || (r.day === d.day
-          && r.month < d.month)
-        || (r.day === d.day
-          && r.month === d.month
-          && r.year < d.year);
-      case "m": return r.month < d.month
-        || (r.month === d.month
-          && r.year < d.year);
-      case "y": return r.year < d.year;
-      default: return false;
-    }
+    return d.raw.getTime() < o.raw.getTime();
   }
 
   isAfter(date: RealDate, params?: Chiral.Date.RoundingParams): boolean {
@@ -202,19 +190,7 @@ export class RealDate implements Chiral.Date.I_Date<RealDate> {
     const r = this.round({ precision, rounding });
     const d = date.round({ precision, rounding });
 
-    switch (precision) {
-      case "d": return r.day > d.day
-        || (r.day === d.day
-          && r.month > d.month)
-        || (r.day === d.day
-          && r.month === d.month
-          && r.year > d.year);
-      case "m": return r.month > d.month
-        || (r.month === d.month
-          && r.year > d.year);
-      case "y": return r.year > d.year;
-      default: return false;
-    }
+    return r.raw.getTime() > d.raw.getTime();
   }
 
   isBetween(start: RealDate, end: RealDate, params?: Chiral.Date.RoundingParams): boolean {
