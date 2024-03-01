@@ -1,3 +1,5 @@
+> (01/03/2024) **This package has been depreciated.** This package separates the intrinsic link between date and time, but in doing so does not support date-times, which are handy more often than they are not. Thus, this package is unhelpful in many situations and has been depreciated to ensure nobody uses it themselves.
+
 # Chiral
 Chiral is a timekeeping library built for JavaScript and TypeScript projects. 
 It sits as a layer of abstraction on top of JavaScript's `Date` class, aiming to effectively replace it for most uses.
